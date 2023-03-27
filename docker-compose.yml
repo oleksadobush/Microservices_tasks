@@ -1,0 +1,65 @@
+version: "3"
+
+networks:
+  microservices:
+    driver: bridge
+
+services:
+  facade-service:
+    build:
+      context: ./facade-service
+      dockerfile: dockerfile
+    networks:
+      - microservices
+    ports:
+      - "8080:8080"
+
+  logging-service1:
+    build:
+      context: ./logging-service
+      dockerfile: dockerfile
+    networks:
+      - microservices
+
+  logging-service2:
+    build:
+      context: ./logging-service
+      dockerfile: dockerfile
+    networks:
+      - microservices
+
+  logging-service3:
+    build:
+      context: ./logging-service
+      dockerfile: dockerfile
+    networks:
+      - microservices
+
+  messages-service:
+    build:
+      context: ./messages-service
+      dockerfile: dockerfile
+    networks:
+      - microservices
+
+  hazel1:
+    image: hazelcast/hazelcast
+    networks:
+      - microservices
+
+  hazel2:
+    image: hazelcast/hazelcast
+    networks:
+      - microservices
+
+  hazel3:
+    image: hazelcast/hazelcast
+    networks:
+      - microservices
+
+  hazel-mc:
+    image: hazelcast/management-center
+    networks:
+      - microservices
+    ports:
+      - "8081:8080"

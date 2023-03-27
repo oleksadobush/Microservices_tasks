@@ -1,28 +1,21 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
-import urllib.parse
+from fastapi import FastAPI
+from LoggingService import LoggingService
+from Message import Message
 
 
-class LoggingController(BaseHTTPRequestHandler):
-    logging = {}
+class LoggingController:
 
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/plain")
-        self.end_headers()
-        self.wfile.write(bytes(str(self.logging).encode()))
+    def __init__(self):
+        self.app = FastAPI()
+        self.service = LoggingService()
 
-    def do_POST(self):
-        self.send_response(200)
-        content_length = int(self.headers['Content-Length'])
-        self.send_header("Content-type", "application/json")
-        body = self.rfile.readline(content_length)
-        dict_body = urllib.parse.parse_qs(body.decode())
-        self.end_headers()
-        uuid = list(dict_body.keys())[0]
-        msg = list(dict_body.values())[0][0]
-        self.logging.update({uuid: msg})
-        print("Message: " + uuid + ": " + msg)
+        @self.app.get('/logging-service')
+        def get_message():
+            return self.service.get_message()
+
+        @self.app.post('/logging-service')
+        def post_message(msg: Message):
+            return self.service.post_message(msg)
 
 
-server = HTTPServer(("127.0.0.1", 8081), LoggingController)
-server.serve_forever()
+log = LoggingController()

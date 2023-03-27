@@ -1,13 +1,15 @@
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from fastapi import FastAPI
+from MessagesService import MessagesService
 
 
-class MessagesController(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/plain")
-        self.end_headers()
-        self.wfile.write(b"Not implemented yet")
+class MessagesController:
+    def __init__(self):
+        self.app = FastAPI()
+        self.service = MessagesService()
+
+        @self.app.get('/messages-service')
+        def get_messages():
+            return self.service.get_messages()
 
 
-server = HTTPServer(("127.0.0.1", 8082), MessagesController)
-server.serve_forever()
+mes = MessagesController()

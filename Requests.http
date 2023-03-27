@@ -2,7 +2,71 @@
 POST http://127.0.0.1:8080/facade-service
 Content-Type: application/json
 
-{"text": "hi <3"}
+
+{"text": "msg1"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg2"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg3"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg4"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg5"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg6"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg7"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg8"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg9"}
+
+###
+POST http://127.0.0.1:8080/facade-service
+Content-Type: application/json
+
+
+{"text": "msg10"}
 
 ###
 GET http://127.0.0.1:8080/facade-service

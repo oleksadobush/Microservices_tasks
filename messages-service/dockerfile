@@ -1,0 +1,4 @@
+FROM python-base:latest
+WORKDIR /usr/src/message
+COPY . .
+CMD uvicorn MessagesController:mes.app --port 8080 --host 0.0.0.0
