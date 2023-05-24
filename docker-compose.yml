@@ -35,12 +35,20 @@ services:
     networks:
       - microservices
 
-  messages-service:
+  messages-service1:
     build:
       context: ./messages-service
       dockerfile: dockerfile
     networks:
       - microservices
+
+  messages-service2:
+    build:
+      context: ./messages-service
+      dockerfile: dockerfile
+    networks:
+      - microservices
+
 
   hazel1:
     image: hazelcast/hazelcast

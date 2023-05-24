@@ -4,8 +4,8 @@ from MessagesService import MessagesService
 
 class MessagesController:
     def __init__(self):
-        self.app = FastAPI()
         self.service = MessagesService()
+        self.app = FastAPI(lifespan=self.service.lifespan)
 
         @self.app.get('/messages-service')
         def get_messages():
