@@ -11,5 +11,9 @@ class MessagesController:
         def get_messages():
             return self.service.get_messages()
 
+        @self.app.get("/health")
+        def healthcheck():
+            return True
+
 
 mes = MessagesController()

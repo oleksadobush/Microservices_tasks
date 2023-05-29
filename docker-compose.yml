@@ -5,14 +5,39 @@ networks:
     driver: bridge
 
 services:
-  facade-service:
+  consul:
+    build:
+      context: ./Consul
+      dockerfile: dockerfile
+    networks:
+      - microservices
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./Consul/server1.json:/consul/config/server1.json:ro
+    command: "agent -bootstrap-expect=1"
+
+  facade-service1:
     build:
       context: ./facade-service
       dockerfile: dockerfile
     networks:
       - microservices
+    environment:
+      - S_ID=1
     ports:
       - "8080:8080"
+
+  facade-service2:
+    build:
+      context: ./facade-service
+      dockerfile: dockerfile
+    networks:
+      - microservices
+    environment:
+      - S_ID=1
+    ports:
+      - "8082:8080"
 
   logging-service1:
     build:
@@ -20,6 +45,8 @@ services:
       dockerfile: dockerfile
     networks:
       - microservices
+    environment:
+      - S_ID=1
 
   logging-service2:
     build:
@@ -27,6 +54,8 @@ services:
       dockerfile: dockerfile
     networks:
       - microservices
+    environment:
+      - S_ID=2
 
   logging-service3:
     build:
@@ -34,6 +63,8 @@ services:
       dockerfile: dockerfile
     networks:
       - microservices
+    environment:
+      - S_ID=3
 
   messages-service1:
     build:
@@ -41,6 +72,8 @@ services:
       dockerfile: dockerfile
     networks:
       - microservices
+    environment:
+      - S_ID=1
 
   messages-service2:
     build:
@@ -48,6 +81,8 @@ services:
       dockerfile: dockerfile
     networks:
       - microservices
+    environment:
+      - S_ID=2
 
 
   hazel1:

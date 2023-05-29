@@ -17,5 +17,9 @@ class LoggingController:
         def post_message(msg: Message):
             return self.service.post_message(msg)
 
+        @self.app.get("/health")
+        def healthcheck():
+            return True
+
 
 log = LoggingController()
